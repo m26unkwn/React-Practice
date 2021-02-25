@@ -8,7 +8,7 @@ export default class Users extends Component {
     UniqueId.enableUniqueIds(this);
 
     this.state = {
-      users: [
+                                          
         { id: this.nextUniqueId(), name: "Monu", age: 20 },
         { id: this.nextUniqueId(), name: "Abhi", age: 20 },
         { id: this.nextUniqueId(), name: "Multani", age: 19 },
