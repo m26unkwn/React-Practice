@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
 export const User = (props) => {
-    return (
-        <div>
-            <p>Name: {props.children} AGE:{props.age}</p>
-        </div>
-    )
-}
+  return (
+    <li>
+      <span>
+        Name: {props.user} AGE: {props.Age}
+      </span>
+
+      <input onChange={props.changeEvent} value={props.userName} />
+      <input onChange={props.changeAge} value={props.age} />
+
+      <button onClick={props.onDelete}>Delete</button>
+    </li>
+  );
+};

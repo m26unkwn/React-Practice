@@ -1,41 +1,28 @@
-import {Component} from 'react';
+import { Component } from "react";
 
-import './App.css';
+import "./App.css";
 
-class App extends Component{
-  state=({name:"Monu"})
+import { Parent } from "./components/parentToChild/Parent";
 
+import Users from "./users/Users";
 
-  changeState=(name)=>{
-    this.setState({
-      name:name
-    })
+class App extends Component {
+  state = {
+    title: "placeholder title",
   };
-  
-  
-  changeStateByInput=(event)=>{
-    this.setState({
-      name:event.target.value
-    })
+  doSomething = (newTitle) => {
+    this.setState({ title: newTitle });
   };
 
-  render(){
+  render() {
     return (
-      <div className="app">
-        <br /> <br />
-        <button onClick={()=>this.changeState('Pass Monu')}>Change state</button>
-        <br />
-        <button onClick={()=>this.changeState('Monu Shukla :(')}>Change state</button>
-        <br/>
-        <button onClick={this.changeState.bind(this,'Monu Shukla :)')}>Bind Change state</button>
-        <br />
-        <input type="text" onChange={this.changeStateByInput} value={this.state.name} />
-
-
-        <br />
-        <p>{this.state.name}</p> 
+      <div className='app'>
+        <Parent
+          doSomething={this.doSomething.bind(this, "ParentToChild")}
+          title={this.state.title}
+        />
+        <Users />
       </div>
-
     );
   }
 }

@@ -1,46 +1,69 @@
-import React, { Component } from 'react';
-import {User} from "./User";
+import React, { Component } from "react";
+import { User } from "./User";
 
+import UniqueId from "react-html-id";
 export default class Users extends Component {
-    state={users:[
-        
-        {name: 'Monu', age:20},
-        { name: 'Manu', age:20},
-        {name: 'Abhi', age:19},
-    
-    ],
-title:'Users List'}
+  constructor() {
+    super();
+    UniqueId.enableUniqueIds(this);
 
- makeMeYounger=()=>{
-    // eslint-disable-next-line array-callback-return
-    const newState = this.state.users.map((user)=>
-    {   while(user.age>10){
-        const tempUser=user;
-        tempUser.age-=10;
-        return tempUser  
-    }
-})
-    this.setState(newState)
+    this.state = {
+      users: [
+        { id: this.nextUniqueId(), name: "Monu", age: 20 },
+        { id: this.nextUniqueId(), name: "Abhi", age: 20 },
+        { id: this.nextUniqueId(), name: "Multani", age: 19 },
+      ],
+    };
+  }
 
- }
+  listDelete = (index, e) => {
+    const users = Object.assign([], this.state.users);
+    users.splice(index, 1);
+    this.setState({ users: users });
+  };
 
+  changeEvent = (id, e) => {
+    const index = this.state.users.findIndex((user) => {
+      return user.id === id;
+    });
+    const user = Object.assign({}, this.state.users[index]);
+    user.name = e.target.value;
+    const users = Object.assign([], this.state.users);
+    users[index] = user;
 
-    render() {
+    this.setState({ users: users });
+  };
 
-        
-        return (
-            <div>
-                <button onClick={this.makeMeYounger}>Click to increase 10 years each</button>
-                <br />
-                <h1>{this.state.title}</h1>
-                {
-                    this.state.users.map((user)=>
-                    {
-                        return <User age={user.age}>{user.name}</User>
-                    })
-                }
-                
-            </div>
-        )
-    }
+  changeAge = (id, e) => {
+    const index = this.state.users.findIndex((user) => {
+      return user.id === id;
+    });
+    const user = Object.assign({}, this.state.users[index]);
+    user.age = e.target.value;
+    const users = Object.assign([], this.state.users);
+    users[index] = user;
+
+    this.setState({ users: users });
+  };
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.users.map((user, i) => {
+            return (
+              <User
+                key={user.id}
+                Age={user.age}
+                onDelete={this.listDelete.bind(this, i)}
+                changeEvent={this.changeEvent.bind(this, user.id)}
+                user={user.name}
+                changeAge={this.changeAge.bind(this, user.id)}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
 }
