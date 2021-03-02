@@ -1,4 +1,11 @@
-*{
+* {
   text-align: center;
-padding: 0;
-box-sizing: border-box;}
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
