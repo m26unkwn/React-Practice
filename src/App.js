@@ -25,13 +25,9 @@ const App = () => {
   const [data, setData] = useState({ title: "hello" });
 
   useEffect(() => {
-    const result = async () => {
-      let result = await fetch(API + DEFAULT_QUERY);
-      let res = await result.json();
-      console.log(res);
-      setData({ title: res.hits[1].title });
-    };
-    result();
+    fetch(API + DEFAULT_QUERY)
+      .then((response) => response.json())
+      .then((data) => setData({ title: data.hits[1].title }));
   }, []);
 
   return (
