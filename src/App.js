@@ -4,9 +4,23 @@ import "./App.css";
 const App = () => {
   const [data, setData] = useState(0);
   const oIncrement = (e) => {
-    setData((prev) => prev + 1);
+    setData((prev) => {
+      if (prev > 0) {
+        return prev * 2;
+      } else {
+        return prev + 1;
+      }
+    });
   };
-  const oDecrement = (e) => {};
+  const oDecrement = (e) => {
+    setData((prev) => {
+      if (prev > 0) {
+        return prev - 10;
+      } else {
+        return prev;
+      }
+    });
+  };
 
   return (
     <div>
