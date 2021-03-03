@@ -1,43 +1,25 @@
 import { useState } from "react";
 import "./App.css";
+
 const App = () => {
-  const [todo, setTodo] = useState([]);
-  const [Input, setInput] = useState("");
-
-  const addList = (e) => {
-    e.preventDefault();
-    setTodo([...todo, Input]);
-    setInput("");
+  const [data, setData] = useState(0);
+  const oIncrement = (e) => {
+    setData((prev) => prev + 1);
   };
-
-  const deleteList = (index, e) => {
-    const todoList = Object.assign([], todo);
-    todoList.splice(index, 1);
-    setTodo([todoList]);
-  };
+  const oDecrement = (e) => {};
 
   return (
-    <>
-      <input
-        type='text'
-        value={Input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={addList}>Add</button>
-      <div>
-        {todo.map((list, key) => (
-          <>
-            <div class='todoList' key={key}>
-              <span>
-                {list} <input type='checkbox' />
-                <button onClick={deleteList}>delete</button>
-              </span>
-            </div>
-          </>
-        ))}
-      </div>
-    </>
+    <div>
+      <button onClick={oIncrement} style={{ margin: "2rem", color: "green" }}>
+        Increment
+      </button>
+
+      <span>{data}</span>
+
+      <button onClick={oDecrement} style={{ margin: "2rem", color: "red" }}>
+        Decrement
+      </button>
+    </div>
   );
 };
-
 export default App;
