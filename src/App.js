@@ -1,39 +1,25 @@
-import React, { Component, useState, useEffect } from "react";
-import "./App.css";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import { Home } from "./components/Home";
+import { Header } from "./components/Header";
+import { About } from "./components/About";
 
-const API = "https://hn.algolia.com/api/v1/search?query=";
-const DEFAULT_QUERY = "redux";
-// export default class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       title: "Hello!",
-//     };
-//   }
-
-//   componentDidMount() {
-//     fetch(API + DEFAULT_QUERY)
-//       .then((response) => response.json())
-//       .then((data) => this.setState({ title: data.hits[0].title }));
-//   }
-
-//   render() {
-//     return <h1> {this.state.title} </h1>;
-//   }
-// }
-const App = () => {
-  const [data, setData] = useState({ title: "hello" });
-
-  useEffect(() => {
-    fetch(API + DEFAULT_QUERY)
-      .then((response) => response.json())
-      .then((data) => setData({ title: data.hits[1].title }));
-  }, []);
-
+import { Users } from "./components/Users";
+export default function App() {
   return (
-    <div>
-      <h1>{data.title}</h1>
-    </div>
+    <>
+      <Header />
+      <Switch>
+        <Route path='/about'>
+          <About />
+        </Route>
+        <Route path='/users'>
+          <Users />
+        </Route>
+        <Route path='/'>
+          <Home />
+        </Route>
+      </Switch>
+    </>
   );
-};
-export default App;
+}
