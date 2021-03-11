@@ -1,25 +1,30 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Header } from "./components/Header";
-import { About } from "./components/About";
-import { Home } from "./components/Home";
-import { Topics } from "./components/Topics";
-export default function App() {
-  return (
-    <Router>
-      <Header />
+import React, { useState } from "react";
 
-      <Switch>
-        <Route path='/about'>
-          <About />
-        </Route>
-        <Route path='/topics'>
-          <Topics />
-        </Route>
-        <Route path='/'>
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+import { NumberList } from "./components/NumberList";
+
+const App = () => {
+  const [open, setOpen] = useState(false);
+
+  const buttonToggle = () => {
+    setOpen(!open);
+  };
+
+  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
+
+  const incrementNumber = () => {
+    const endNumber = numbers[numbers.length - 1];
+    setNumbers([...numbers, endNumber + 1]);
+  };
+  return (
+    <div>
+      <button onClick={buttonToggle}>CLICK</button>
+      <p>{open ? "opened" : "closed"}</p>
+      <button onClick={incrementNumber}>Add</button>
+      <ul>
+        <NumberList numbers={numbers} />
+      </ul>
+    </div>
   );
-}
+};
+
+export default App;
