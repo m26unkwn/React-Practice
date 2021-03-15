@@ -1,28 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { NumberList } from "./components/NumberList";
+import { Search } from "./components/Search";
+import { List } from "./components/List";
 
 const App = () => {
-  const [open, setOpen] = useState(false);
+  const stories = [
+    {
+      title: "React",
+      url: "https://reactjs.org/",
+      author: "Jordan Walke",
+      num_comments: 3,
+      points: 4,
+      objectID: 0,
+    },
+    {
+      title: "Redux",
+      url: "https://redux.js.org/",
+      author: "Dan Abramov, Andrew Clark",
+      num_comments: 2,
+      points: 5,
+      objectID: 1,
+    },
+  ];
 
-  const buttonToggle = () => {
-    setOpen(!open);
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
   };
 
-  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
+  const searchedStories = stories.filter((story) =>
+    story.author.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const incrementNumber = () => {
-    const endNumber = numbers[numbers.length - 1];
-    setNumbers([...numbers, endNumber + 1]);
-  };
   return (
     <div>
-      <button onClick={buttonToggle}>CLICK</button>
-      <p>{open ? "opened" : "closed"}</p>
-      <button onClick={incrementNumber}>Add</button>
-      <ul>
-        <NumberList numbers={numbers} />
-      </ul>
+      <h1>My Hacker Stories</h1>
+
+      <Search onSearch={handleSearch} />
+
+      <hr />
+
+      <List list={searchedStories} />
     </div>
   );
 };
